@@ -1,0 +1,14 @@
+---
+- name: "Ensure SNS Topic {{ sns_name }} exists."
+  sns_topic:
+    name: "{{ sns_name }}"
+    display_name: "{{ sns_display_name }}"
+    region: "{{ sns_region }}"
+    state: "{{ sns_state }}"
+    subscriptions: "{{ sns_subscriptions }}"
+    delivery_policy: "{{ sns_delivery_policy }}"
+  register: sns_topic
+
+- name: "Set sns_arn as a new fact."
+  set_fact:
+    sns_arn: "{{ sns_topic['sns_arn'] }}"
